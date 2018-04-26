@@ -1,0 +1,83 @@
+<!--
+  #%L
+  No Sources in JAR files Rule
+  %%
+  Copyright (C) 2018 - 2019 Paremus Ltd
+  %%
+  Licensed under the Fair Source License, Version 0.9 (the "License");
+  
+  See the NOTICE.txt file distributed with this work for additional 
+  information regarding copyright ownership. You may not use this file 
+  except in compliance with the License. For usage restrictions see the 
+  LICENSE.txt file distributed with this work
+  #L%
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.paremus.build.rule.nosources.test</groupId>
+    <artifactId>sources</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>bnd-maven-plugin</artifactId>
+                <version>4.1.0</version>
+                <executions>
+                    <execution>
+                        <id>default-bnd-process</id>
+                        <goals>
+                            <goal>bnd-process</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.paremus.build</groupId>
+                        <artifactId>no-sources-in-jar</artifactId>
+                        <version>1.0.0</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>enforce-no-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <myCustomRule implementation="com.paremus.build.rule.nosources.NoSourcesInJarRule"/>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

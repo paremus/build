@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.paremus.build</groupId>
+    <artifactId>fair-source-license-resources</artifactId>
+    <version>1.0.0</version>
+    
+    <name>Paremus Fair Source License Resources</name>
+    <description>
+        Packaged Resources for the license-check-maven-plugin
+        used to provide templates for the Fair Source License.
+    </description>
+    <url>https://github.com/paremus/build</url>
+    
+    <licenses>
+        <license>
+            <name>Fair Source License, version 0.9</name>
+            <url>https://fair.io/#license</url>
+            <comments>
+                As users do not typically interact directly with Paremus components
+                the User limit of the Fair Source License is interpreted by Paremus 
+                as applying to the number of running processes.
+            </comments>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <id>tward</id>
+            <name>Tim Ward</name>
+            <email>tim.ward@paremus.com</email>
+            <organization>Paremus</organization>
+            <organizationUrl>https://paremus.com</organizationUrl>
+        </developer>
+        <developer>
+            <id>derek</id>
+            <name>Derek Baum</name>
+            <email>derek.baum@paremus.com</email>
+            <organization>Paremus</organization>
+            <organizationUrl>https://paremus.com</organizationUrl>
+        </developer>
+    </developers>
+    
+    <scm>
+        <connection>scm:git:https://github.com/paremus/build.git</connection>
+        <developerConnection>scm:git:https://github.com/paremus/build.git</developerConnection>
+        <url>https://github.com/paremus/build</url>
+    </scm>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <build>
+        <plugins>
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>javad-c</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>javadoc-no-fork</goal>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
